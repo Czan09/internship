@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "john@example.com",
+      "password": "$2a$10$example_hashed_password",
+      "name": "John Doe",
+      "avatar": null,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "email": "jane@example.com",
+      "password": "$2a$10$example_hashed_password",
+      "name": "Jane Smith",
+      "avatar": null,
+      "createdAt": "2024-01-02T00:00:00.000Z",
+      "updatedAt": "2024-01-02T00:00:00.000Z"
+    }
+  ],
+  "budgets": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Monthly Budget",
+      "amount": 5000,
+      "spent": 2500,
+      "category": "general",
+      "description": "Main monthly budget",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "Food Budget",
+      "amount": 1000,
+      "spent": 750,
+      "category": "food",
+      "description": "Monthly food expenses",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-20T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "name": "Travel Budget",
+      "amount": 2000,
+      "spent": 500,
+      "category": "travel",
+      "description": "Vacation savings",
+      "createdAt": "2024-01-05T00:00:00.000Z",
+      "updatedAt": "2024-01-10T00:00:00.000Z"
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "budgetId": 1,
+      "userId": 1,
+      "amount": 100,
+      "description": "Groceries at Walmart",
+      "category": "food",
+      "receipt": null,
+      "date": "2024-01-15T00:00:00.000Z",
+      "createdAt": "2024-01-15T00:00:00.000Z",
+      "updatedAt": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "budgetId": 1,
+      "userId": 1,
+      "amount": 50,
+      "description": "Gas station",
+      "category": "transportation",
+      "receipt": null,
+      "date": "2024-01-16T00:00:00.000Z",
+      "createdAt": "2024-01-16T00:00:00.000Z",
+      "updatedAt": "2024-01-16T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "budgetId": 2,
+      "userId": 1,
+      "amount": 25,
+      "description": "Restaurant dinner",
+      "category": "food",
+      "receipt": "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+      "date": "2024-01-17T00:00:00.000Z",
+      "createdAt": "2024-01-17T00:00:00.000Z",
+      "updatedAt": "2024-01-17T00:00:00.000Z"
+    }
+  ],
+  "billSplits": [
+    {
+      "id": 1,
+      "expenseId": 1,
+      "splitBetween": [1, 2],
+      "amounts": {
+        "1": 50,
+        "2": 50
+      },
+      "status": "pending",
+      "createdAt": "2024-01-15T00:00:00.000Z"
+    }
+  ]
+}
