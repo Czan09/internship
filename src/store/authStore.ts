@@ -6,11 +6,13 @@ type User = any;
 type AuthState = {
   user: User | null;
   token: string | null;
+  initializing: boolean;
 };
 
 const state: AuthState = {
   user: null,
   token: typeof window !== 'undefined' ? localStorage.getItem('token') : null,
+  initializing: typeof window !== 'undefined' ? Boolean(localStorage.getItem('token')) : false,
 };
 
 const listeners = new Set<() => void>();
@@ -36,12 +38,19 @@ export function setToken(token: string | null) {
 export function logout() {
   state.user = null;
   state.token = null;
+  state.initializing = false;
   if (typeof window !== 'undefined') localStorage.removeItem('token');
   notify();
 }
 
 async function initFromToken() {
-  if (!state.token) return;
+  state.initializing = true;
+  notify();
+  if (!state.token) {
+    state.initializing = false;
+    notify();
+    return;
+  }
   try {
     const decoded = atob(state.token);
     const email = decoded.split(':')[0];
@@ -53,8 +62,11 @@ async function initFromToken() {
   } catch (e) {
     // ignore
     console.warn('Failed to initialize auth from token', e);
+  } finally {
+    state.initializing = false;
+    notify();
   }
-}
+} 
 
 // Initialize if token exists
 initFromToken();
@@ -65,15 +77,16 @@ export function useAuthStore() {
     return () => listeners.delete(listener);
   };
 
-  const getSnapshot = () => ({ user: state.user, token: state.token });
+  const getSnapshot = () => ({ user: state.user, token: state.token, initializing: state.initializing });
 
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   return {
     user: snapshot.user,
     token: snapshot.token,
+    initializing: snapshot.initializing,
     setUser,
     setToken,
     logout,
   };
-}
+} 

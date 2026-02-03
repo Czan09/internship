@@ -14,7 +14,7 @@ interface RegisterData {
 }
 
 export const useAuth = () => {
-  const { user, token, setUser, setToken, logout: clearAuth } = useAuthStore();
+  const { user, token, initializing, setUser, setToken, logout: clearAuth } = useAuthStore();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -60,6 +60,7 @@ export const useAuth = () => {
     user,
     token,
     isAuthenticated: !!user && !!token,
+    initializing,
     loading,
     error,
     login,

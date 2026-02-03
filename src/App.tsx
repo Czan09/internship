@@ -1,18 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import { useAuth } from './hooks/useAuth';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, initializing } = useAuth();
+  if (initializing) return null; // Wait until auth is initialized
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
 }
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -26,8 +25,6 @@ function App() {
         />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
-      <Toaster />
-    </BrowserRouter>
   );
 }
 
