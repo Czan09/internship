@@ -21,17 +21,20 @@ const Dashboard: React.FC = () => {
     const [budgets, setBudgets] = useState<Budget[]>([]);
     const [loading, setLoading] = useState(true);
 
+
     // 2. Fetch data from JSON Server
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [userRes, budgetRes] = await Promise.all([
+                const [userRes, budgetRes, nameRes] = await Promise.all([
                     fetch('http://localhost:5000/users'),
-                    fetch('http://localhost:5000/budgets')
+                    fetch('http://localhost:5000/budgets'),
+                    fetch('http://localhost:5000/name')
                 ]);
 
                 const userData = await userRes.json();
                 const budgetData = await budgetRes.json();
+                const nameData = await nameRes.json();
 
                 setUsers(userData);
                 setBudgets(budgetData);
@@ -54,7 +57,7 @@ const Dashboard: React.FC = () => {
         <div className="p-6 bg-gray-100 min-h-screen">
           <header className="flex justify-between items-center mb-6">
     {/* This stays on the Left */}
-    <h1 className="text-3xl font-bold">Dashboard</h1>
+    <h1 className="text-3xl font-bold">Welcome {}</h1>
 
     {/* This moves to the Right */}
     <div className="relative">

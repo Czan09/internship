@@ -16,9 +16,8 @@ export interface AuthResponse {
   token: string;
 }
 
-// Register a new user using JSON Server's /register route (mapped to /users)
+// 1. Register Function
 export const register = async (data: RegisterData): Promise<AuthResponse> => {
-  // Check if email already exists
   const existing = await apiClient.get('/users', { params: { email: data.email } });
   if (Array.isArray(existing.data) && existing.data.length > 0) {
     const err: any = new Error('Email already registered');
@@ -36,18 +35,19 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
     updatedAt: timestamp,
   };
 
-  const response = await apiClient.post('/register', payload);
+  const response = await apiClient.post('/users', payload);
   const user = response.data;
   const token = btoa(`${user.email}:${Date.now()}`);
 
   return { user, token };
 };
 
-// Simple login implementation that checks email and password against /users
+// 2. Login Function (ADD THIS BACK IN)
 export const login = async (data: LoginData): Promise<AuthResponse> => {
   const response = await apiClient.get('/users', { params: { email: data.email } });
   const users = response.data;
 
+  // Check if user exists
   if (!Array.isArray(users) || users.length === 0) {
     const err: any = new Error('User not found');
     err.response = { data: { message: 'User not found' }, status: 404 };
@@ -55,6 +55,8 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
   }
 
   const user = users[0];
+
+  // Check if password matches
   if (user.password !== data.password) {
     const err: any = new Error('Invalid credentials');
     err.response = { data: { message: 'Invalid credentials' }, status: 401 };

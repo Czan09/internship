@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore, useMemo } from 'react';
 import apiClient from '../lib/api/client';
 
 type User = any;
@@ -9,10 +9,12 @@ type AuthState = {
   initializing: boolean;
 };
 
-const state: AuthState = {
+// 1. Keep the state object stable
+let state: AuthState = {
   user: null,
   token: typeof window !== 'undefined' ? localStorage.getItem('token') : null,
-  initializing: typeof window !== 'undefined' ? Boolean(localStorage.getItem('token')) : false,
+  // If no token exists, we aren't initializing anything, so set to false immediately
+  initializing: typeof window !== 'undefined' ? !!localStorage.getItem('token') : false,
 };
 
 const listeners = new Set<() => void>();
@@ -22,53 +24,53 @@ function notify() {
 }
 
 export function setUser(user: User | null) {
-  state.user = user;
+  state = { ...state, user };
   notify();
 }
 
 export function setToken(token: string | null) {
-  state.token = token;
   if (typeof window !== 'undefined') {
     if (token) localStorage.setItem('token', token);
     else localStorage.removeItem('token');
   }
+  state = { ...state, token };
   notify();
 }
 
 export function logout() {
-  state.user = null;
-  state.token = null;
-  state.initializing = false;
   if (typeof window !== 'undefined') localStorage.removeItem('token');
+  state = { user: null, token: null, initializing: false };
   notify();
 }
 
 async function initFromToken() {
-  state.initializing = true;
-  notify();
   if (!state.token) {
-    state.initializing = false;
+    state = { ...state, initializing: false };
     notify();
     return;
   }
+
   try {
-    const decoded = atob(state.token);
-    const email = decoded.split(':')[0];
+    // Basic JWT check (optional: verify if token is actually a string before atob)
+    const decoded = atob(state.token.split('.')[1] || state.token); 
+    const email = decoded.includes(':') ? decoded.split(':')[0] : JSON.parse(decoded).email;
+    
     const res = await apiClient.get('/users', { params: { email } });
+    
     if (Array.isArray(res.data) && res.data.length) {
-      state.user = res.data[0];
-      notify();
+      state = { ...state, user: res.data[0] };
     }
   } catch (e) {
-    // ignore
     console.warn('Failed to initialize auth from token', e);
+    // On failure, you might want to clear the invalid token
+    // logout(); 
   } finally {
-    state.initializing = false;
+    state = { ...state, initializing: false };
     notify();
   }
-} 
+}
 
-// Initialize if token exists
+// Kick off initialization
 initFromToken();
 
 export function useAuthStore() {
@@ -77,16 +79,16 @@ export function useAuthStore() {
     return () => listeners.delete(listener);
   };
 
-  const getSnapshot = () => ({ user: state.user, token: state.token, initializing: state.initializing });
+  // 2. Return the stable state object directly
+  const getSnapshot = () => state;
 
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
-  return {
-    user: snapshot.user,
-    token: snapshot.token,
-    initializing: snapshot.initializing,
+  // 3. Merge actions with the snapshot
+  return useMemo(() => ({
+    ...snapshot,
     setUser,
     setToken,
     logout,
-  };
-} 
+  }), [snapshot]);
+}

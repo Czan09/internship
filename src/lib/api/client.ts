@@ -2,7 +2,7 @@ import axios from 'axios';
 // Use "import type" for TypeScript interfaces and types
 import type { AxiosInstance, AxiosError, AxiosRequestConfig } from 'axios';
 // API Base URL - change this to your JSON Server URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
@@ -36,11 +36,11 @@ apiClient.interceptors.response.use(
       const status = error.response.status;
 
       switch (status) {
-        case 401:
-          // Unauthorized - clear token and redirect to login
-          localStorage.removeItem('token');
-          window.location.href = '/login';
-          break;
+        // case 401:
+        //   // Unauthorized - clear token and redirect to login
+        //   localStorage.removeItem('token');
+        //   window.location.href = '/login';
+        //   break;
         case 403:
           // Forbidden
           console.error('Access forbidden');
