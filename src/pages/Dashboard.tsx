@@ -20,6 +20,7 @@ const Dashboard: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [budgets, setBudgets] = useState<Budget[]>([]);
     const [loading, setLoading] = useState(true);
+    const [currentUserName, setCurrentUserName] = useState<string>("");
 
 
     // 2. Fetch data from JSON Server
@@ -38,6 +39,7 @@ const Dashboard: React.FC = () => {
 
                 setUsers(userData);
                 setBudgets(budgetData);
+                setCurrentUserName(nameData.name || "User");
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -57,7 +59,7 @@ const Dashboard: React.FC = () => {
         <div className="p-6 bg-gray-100 min-h-screen">
           <header className="flex justify-between items-center mb-6">
     {/* This stays on the Left */}
-    <h1 className="text-3xl font-bold">Welcome {}</h1>
+    <h1 className="text-3xl font-bold">Welcome {currentUserName}</h1>
 
     {/* This moves to the Right */}
     <div className="relative">
