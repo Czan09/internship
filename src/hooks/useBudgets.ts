@@ -1,6 +1,6 @@
 import { useFetch } from './useFetch';
 import { useMutation } from './useMutation';
-import { Budget } from '@/types/budget';
+import { Budget } from '../pages/Budget';
 
 export const useBudgets = (userId?: number) => {
   const url = userId ? `/budgets?userId=${userId}` : '/budgets';

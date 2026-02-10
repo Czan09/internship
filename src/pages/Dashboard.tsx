@@ -3,7 +3,7 @@ import { Switch, Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/react'
 
 // Define types based on your db.json
 interface User {
-    id: number;
+    id: string;
     name: string;
 }
 
@@ -20,26 +20,30 @@ const Dashboard: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [budgets, setBudgets] = useState<Budget[]>([]);
     const [loading, setLoading] = useState(true);
-    const [currentUserName, setCurrentUserName] = useState<string>("");
 
+    const [currentUserName, setCurrentUserName] = useState<string>("");
 
     // 2. Fetch data from JSON Server
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [userRes, budgetRes, nameRes] = await Promise.all([
+                const [userRes, budgetRes] = await Promise.all([
                     fetch('http://localhost:5000/users'),
                     fetch('http://localhost:5000/budgets'),
-                    fetch('http://localhost:5000/name')
                 ]);
-
-                const userData = await userRes.json();
+                
+                const userData:User[] = await userRes.json();
                 const budgetData = await budgetRes.json();
-                const nameData = await nameRes.json();
 
+                
                 setUsers(userData);
                 setBudgets(budgetData);
-                setCurrentUserName(nameData.name || "User");
+
+           if (userData.length > 0) {
+    setCurrentUserName(userData[0].name);
+} else {
+    setCurrentUserName("Guest");
+}
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
