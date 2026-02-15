@@ -14,16 +14,14 @@ interface Budget {
 }
 
 const Dashboard: React.FC = () => {
-    const [enabled, setEnabled] = useState(false);
-    
-    // 1. Create state for your data
     const [users, setUsers] = useState<User[]>([]);
     const [budgets, setBudgets] = useState<Budget[]>([]);
     const [loading, setLoading] = useState(true);
+    const [enabled, setEnabled] = useState(false);
 
-    const [currentUserName, setCurrentUserName] = useState<string>("");
+    // Remove the currentUserName state! 
+    // We will "derive" it from the users list instead.
 
-    // 2. Fetch data from JSON Server
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -32,33 +30,34 @@ const Dashboard: React.FC = () => {
                     fetch('http://localhost:5000/budgets'),
                 ]);
                 
-                const userData:User[] = await userRes.json();
-                const budgetData = await budgetRes.json();
+                const userData: User[] = await userRes.json();
+                const budgetData: Budget[] = await budgetRes.json();
 
-                
                 setUsers(userData);
                 setBudgets(budgetData);
-
-           if (userData.length > 0) {
-    setCurrentUserName(userData[0].name);
-} else {
-    setCurrentUserName("Guest");
-}
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchData();
     }, []);
 
-    // 3. Calculate dynamic totals
+    // --- DYNAMIC LOGIC ---
+    // 1. Get the "Logged In" ID from storage (or default to "1")
+    const loggedInId = localStorage.getItem('userId') || "1";
+
+    // 2. Find that specific user in your fetched data
+    const currentUser = users.find(u => u.id === loggedInId) || users[0];
+    
+    // 3. Get the name safely
+    const currentUserName = currentUser?.name || "Guest";
+    // ---------------------
+
     const totalRevenue = budgets.reduce((acc, curr) => acc + curr.amount, 0);
 
     if (loading) return <div className="p-6">Loading Dashboard...</div>;
-
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
           <header className="flex justify-between items-center mb-6">
