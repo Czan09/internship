@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/react';
+import { Switch, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
+import { useAuth } from '../hooks/useAuth'; // Ensure this path is correct
 
-// Define types based on your db.json
+// Types
 interface User {
     id: string;
     name: string;
@@ -14,13 +15,13 @@ interface Budget {
 }
 
 const Dashboard: React.FC = () => {
+    // 1. Get the authenticated user and logout function from your hook
+    const { user: authUser, logout } = useAuth();
+    
+    const [enabled, setEnabled] = useState(false);
     const [users, setUsers] = useState<User[]>([]);
     const [budgets, setBudgets] = useState<Budget[]>([]);
     const [loading, setLoading] = useState(true);
-    const [enabled, setEnabled] = useState(false);
-
-    // Remove the currentUserName state! 
-    // We will "derive" it from the users list instead.
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +33,7 @@ const Dashboard: React.FC = () => {
                 
                 const userData: User[] = await userRes.json();
                 const budgetData: Budget[] = await budgetRes.json();
-
+                
                 setUsers(userData);
                 setBudgets(budgetData);
             } catch (error) {
@@ -44,70 +45,58 @@ const Dashboard: React.FC = () => {
         fetchData();
     }, []);
 
-    // --- DYNAMIC LOGIC ---
-    // 1. Get the "Logged In" ID from storage (or default to "1")
-    const loggedInId = localStorage.getItem('userId') || "1";
-
-    // 2. Find that specific user in your fetched data
-    const currentUser = users.find(u => u.id === loggedInId) || users[0];
-    
-    // 3. Get the name safely
-    const currentUserName = currentUser?.name || "Guest";
-    // ---------------------
+    // 2. Logic: Always use the name from the Auth State
+    const currentUserName = authUser?.name || "Guest";
 
     const totalRevenue = budgets.reduce((acc, curr) => acc + curr.amount, 0);
 
-    if (loading) return <div className="p-6">Loading Dashboard...</div>;
+    if (loading) return <div className="p-6 text-center">Loading Dashboard...</div>;
+
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
-          <header className="flex justify-between items-center mb-6">
-    {/* This stays on the Left */}
-    <h1 className="text-3xl font-bold">Welcome {currentUserName}</h1>
+            <header className="flex justify-between items-center mb-6">
+                {/* DYNAMIC NAME */}
+                <h1 className="text-3xl font-bold">Welcome {currentUserName}</h1>
 
-    {/* This moves to the Right */}
-    <div className="relative">
-        <Menu>
-            <MenuButton className="px-4 py-2 bg-white rounded-md shadow-sm border border-gray-200 hover:bg-gray-50 transition">
-                My account
-            </MenuButton>
+                <div className="relative">
+                    <Menu>
+                        <MenuButton className="px-4 py-2 bg-white rounded-md shadow-sm border border-gray-200 hover:bg-gray-50 transition cursor-pointer">
+                            My account
+                        </MenuButton>
 
-            {/* anchor="bottom end" ensures the dropdown aligns to the right edge of the button */}
-            <MenuItems 
-                anchor="bottom end" 
-                className="w-48 mt-2 origin-top-right rounded-xl border border-gray-200 bg-white p-1 shadow-lg focus:outline-none"
-            >
-                <MenuItem>
-                    <a className="block rounded-lg py-2 px-3 text-sm hover:bg-blue-50" href="/settings">
-                        Settings
-                    </a>
-                </MenuItem>
-                <MenuItem>
-                    <a className="block rounded-lg py-2 px-3 text-sm hover:bg-blue-50" href="/support">
-                        Support
-                    </a>
-                </MenuItem>
-                <div className="my-1 h-px bg-gray-100" /> {/* Optional Separator */}
-                <MenuItem>
-                    <a className="block rounded-lg py-2 px-3 text-sm hover:bg-blue-50 text-red-600" href="/logout">
-                        Logout
-                    </a>
-                </MenuItem>
-            </MenuItems>
-        </Menu>
-    </div>
-          </header>
+                        <MenuItems 
+                            anchor="bottom end" 
+                            className="w-48 mt-2 origin-top-right rounded-xl border border-gray-200 bg-white p-1 shadow-lg focus:outline-none"
+                        >
+                            <MenuItem>
+                                <a className="block rounded-lg py-2 px-3 text-sm hover:bg-blue-50" href="/settings">
+                                    Settings
+                                </a>
+                            </MenuItem>
+                            <div className="my-1 h-px bg-gray-100" />
+                            <MenuItem>
+                                {/* LOGOUT ACTION */}
+                                <button 
+                                    onClick={logout}
+                                    className="w-full text-left block rounded-lg py-2 px-3 text-sm hover:bg-red-50 text-red-600 cursor-pointer"
+                                >
+                                    Logout
+                                </button>
+                            </MenuItem>
+                        </MenuItems>
+                    </Menu>
+                </div>
+            </header>
 
             <main>
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div className="bg-white p-4 rounded shadow">
                         <h2 className="text-xl font-semibold text-gray-600">Total Users</h2>
-                        {/* Display dynamic user count */}
                         <p className="text-2xl font-bold">{users.length}</p>
                     </div>
                     
                     <div className="bg-white p-4 rounded shadow">
                         <h2 className="text-xl font-semibold text-gray-600">Total Budget</h2>
-                        {/* Display dynamic budget sum */}
                         <p className="text-2xl font-bold">${totalRevenue.toLocaleString()}</p>
                     </div>
 
@@ -118,32 +107,15 @@ const Dashboard: React.FC = () => {
                 </section>
 
                 <section className="bg-white p-4 rounded shadow">
-                    <h2 className="text-xl font-semibold mb-4">User List</h2>
+                    <h2 className="text-xl font-semibold mb-4">Internal User List</h2>
                     <ul className="divide-y">
-                        {users.map(user => (
-                            <li key={user.id} className="py-2">{user.name}</li>
+                        {users.map(u => (
+                            <li key={u.id} className={`py-2 ${u.id === authUser?.id ? 'font-bold text-blue-600' : ''}`}>
+                                {u.name} {u.id === authUser?.id && "(You)"}
+                            </li>
                         ))}
                     </ul>
                 </section>
-
-                <div className="bg-white p-4 rounded shadow mt-6">
-                    <label className="flex items-center gap-2">
-                        <span>Enable notifications</span>
-                        <Switch
-                            checked={enabled}
-                            onChange={setEnabled}
-                            className={`${
-                                enabled ? 'bg-blue-600' : 'bg-gray-200'
-                            } relative inline-flex h-6 w-11 items-center rounded-full transition-colors`}
-                        >
-                            <span
-                                className={`${
-                                    enabled ? 'translate-x-6' : 'translate-x-1'
-                                } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                            />
-                        </Switch>
-                    </label>
-                </div>
             </main>
         </div>
     );

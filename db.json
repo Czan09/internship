@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "email": "john@example.com",
       "password": "$2a$10$example_hashed_password",
       "name": "John Doe",
@@ -10,7 +10,7 @@
       "updatedAt": "2024-01-01T00:00:00.000Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "email": "jane@example.com",
       "password": "$2a$10$example_hashed_password",
       "name": "Jane Smith",
@@ -19,18 +19,27 @@
       "updatedAt": "2024-01-02T00:00:00.000Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "czan",
       "email": "czanmansingh@gmail.com",
       "password": "Hinata1234#",
       "avatar": null,
       "createdAt": "2026-02-10T16:23:55.836Z",
       "updatedAt": "2026-02-10T16:23:55.836Z"
+    },
+    {
+      "id": "a27d",
+      "name": "Jenish Maharjan",
+      "email": "jenish@gmail.com",
+      "password": "LegendOfZero",
+      "avatar": null,
+      "createdAt": "2026-02-15T17:32:38.254Z",
+      "updatedAt": "2026-02-15T17:32:38.254Z"
     }
   ],
   "budgets": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "name": "Monthly Budget",
       "amount": 5000,
@@ -41,7 +50,7 @@
       "updatedAt": "2024-01-15T00:00:00.000Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 1,
       "name": "Food Budget",
       "amount": 1000,
@@ -52,7 +61,7 @@
       "updatedAt": "2024-01-20T00:00:00.000Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 2,
       "name": "Travel Budget",
       "amount": 2000,
