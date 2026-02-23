@@ -73,6 +73,10 @@ async function initFromToken() {
 // Kick off initialization
 initFromToken();
 
+export function getUserId(): number | null {
+  return state.user?.id ?? null
+}
+
 export function useAuthStore() {
   const subscribe = (listener: () => void) => {
     listeners.add(listener);
@@ -90,5 +94,6 @@ export function useAuthStore() {
     setUser,
     setToken,
     logout,
+    getUserId,
   }), [snapshot]);
 }

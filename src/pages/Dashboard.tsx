@@ -44,7 +44,7 @@ const Dashboard: React.FC = () => {
         };
         fetchData();
     }, []);
-
+    console.log(users)
     // 2. Logic: Always use the name from the Auth State
     const currentUserName = authUser?.name || "Guest";
 

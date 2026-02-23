@@ -1,113 +1,107 @@
 {
   "users": [
     {
-      "id": "1",
-      "email": "john@example.com",
-      "password": "$2a$10$example_hashed_password",
-      "name": "John Doe",
-      "avatar": null,
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "2",
-      "email": "jane@example.com",
-      "password": "$2a$10$example_hashed_password",
-      "name": "Jane Smith",
-      "avatar": null,
-      "createdAt": "2024-01-02T00:00:00.000Z",
-      "updatedAt": "2024-01-02T00:00:00.000Z"
-    },
-    {
-      "id": "3",
+      "id": "419d",
       "name": "czan",
       "email": "czanmansingh@gmail.com",
       "password": "Hinata1234#",
       "avatar": null,
-      "createdAt": "2026-02-10T16:23:55.836Z",
-      "updatedAt": "2026-02-10T16:23:55.836Z"
-    },
-    {
-      "id": "a27d",
-      "name": "Jenish Maharjan",
-      "email": "jenish@gmail.com",
-      "password": "LegendOfZero",
-      "avatar": null,
-      "createdAt": "2026-02-15T17:32:38.254Z",
-      "updatedAt": "2026-02-15T17:32:38.254Z"
+      "createdAt": "2026-02-17T15:48:21.634Z",
+      "updatedAt": "2026-02-17T15:48:21.634Z"
     }
   ],
   "budgets": [
     {
-      "id": "1",
-      "userId": 1,
-      "name": "Monthly Budget",
-      "amount": 5000,
-      "spent": 2500,
-      "category": "general",
-      "description": "Main monthly budget",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-15T00:00:00.000Z"
+      "id": "95c9",
+      "name": "test",
+      "amount": 80,
+      "spent": 0,
+      "category": "sd",
+      "description": "dsd",
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:29:30.681Z",
+      "updatedAt": "2026-02-18T01:29:30.681Z"
     },
     {
-      "id": "2",
-      "userId": 1,
-      "name": "Food Budget",
-      "amount": 1000,
-      "spent": 750,
-      "category": "food",
-      "description": "Monthly food expenses",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-20T00:00:00.000Z"
+      "id": "c95d",
+      "name": "test2",
+      "amount": 500,
+      "spent": 0,
+      "category": "dd",
+      "description": "dd",
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:29:56.399Z",
+      "updatedAt": "2026-02-18T01:29:56.399Z"
     },
     {
-      "id": "3",
-      "userId": 2,
-      "name": "Travel Budget",
-      "amount": 2000,
-      "spent": 500,
-      "category": "travel",
-      "description": "Vacation savings",
-      "createdAt": "2024-01-05T00:00:00.000Z",
-      "updatedAt": "2024-01-10T00:00:00.000Z"
+      "id": "ae6d",
+      "name": "test3",
+      "amount": 500,
+      "spent": 0,
+      "category": "ff",
+      "description": "ff",
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:32:06.497Z",
+      "updatedAt": "2026-02-18T01:32:06.497Z"
+    },
+    {
+      "id": "6069",
+      "name": "test5",
+      "amount": 80,
+      "spent": 0,
+      "category": "15",
+      "description": "10",
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:32:59.527Z",
+      "updatedAt": "2026-02-18T01:32:59.527Z"
+    },
+    {
+      "id": "e530",
+      "name": "test3",
+      "amount": 50,
+      "spent": 0,
+      "category": "15",
+      "description": "ss",
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:33:37.180Z",
+      "updatedAt": "2026-02-18T01:33:37.180Z"
+    },
+    {
+      "id": "b8ba",
+      "name": "test",
+      "amount": 80,
+      "spent": 0,
+      "category": "ds",
+      "description": "152",
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:39:00.487Z",
+      "updatedAt": "2026-02-18T01:39:00.487Z"
     }
   ],
   "expenses": [
     {
-      "id": "1",
-      "budgetId": 1,
-      "userId": 1,
-      "amount": 100,
-      "description": "Groceries at Walmart",
-      "category": "food",
+      "id": "cf27",
+      "budgetId": 6069,
+      "amount": 500,
+      "category": "12",
+      "description": "sdasd",
+      "date": "2026-02-18",
       "receipt": null,
-      "date": "2024-01-15T00:00:00.000Z",
-      "createdAt": "2024-01-15T00:00:00.000Z",
-      "updatedAt": "2024-01-15T00:00:00.000Z"
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:44:18.661Z",
+      "updatedAt": "2026-02-18T01:44:18.661Z"
     },
     {
-      "id": "2",
-      "budgetId": 1,
-      "userId": 1,
-      "amount": 50,
-      "description": "Gas station",
-      "category": "transportation",
+      "id": "c0f7",
+      "budgetId": 6069,
+      "amount": 15,
+      "category": "12",
+      "description": "12",
+      "date": 1771379560916,
       "receipt": null,
-      "date": "2024-01-16T00:00:00.000Z",
-      "createdAt": "2024-01-16T00:00:00.000Z",
-      "updatedAt": "2024-01-16T00:00:00.000Z"
-    },
-    {
-      "id": "3",
-      "budgetId": 2,
-      "userId": 1,
-      "amount": 25,
-      "description": "Restaurant dinner",
-      "category": "food",
-      "receipt": "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
-      "date": "2024-01-17T00:00:00.000Z",
-      "createdAt": "2024-01-17T00:00:00.000Z",
-      "updatedAt": "2024-01-17T00:00:00.000Z"
+      "userId": "419d",
+      "createdAt": "2026-02-18T01:52:59.199Z",
+      "updatedAt": "2026-02-18T01:52:59.199Z"
     }
   ],
   "billSplits": [
