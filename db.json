@@ -8,6 +8,15 @@
       "avatar": null,
       "createdAt": "2026-02-17T15:48:21.634Z",
       "updatedAt": "2026-02-17T15:48:21.634Z"
+    },
+    {
+      "id": "bbbc",
+      "name": "Jenish",
+      "email": "jenishmhrz@gmail.com",
+      "password": "LegendOfZero",
+      "avatar": null,
+      "createdAt": "2026-03-03T06:43:56.755Z",
+      "updatedAt": "2026-03-03T06:43:56.755Z"
     }
   ],
   "budgets": [
@@ -76,6 +85,17 @@
       "userId": "419d",
       "createdAt": "2026-02-18T01:39:00.487Z",
       "updatedAt": "2026-02-18T01:39:00.487Z"
+    },
+    {
+      "id": "4790",
+      "name": "pc",
+      "amount": 10000,
+      "spent": 0,
+      "category": "personal",
+      "description": "building pc",
+      "userId": "bbbc",
+      "createdAt": "2026-03-03T06:45:46.444Z",
+      "updatedAt": "2026-03-03T06:45:46.444Z"
     }
   ],
   "expenses": [
