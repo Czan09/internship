@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { expStore } from "../store/expenseStore"
 import type { Expense } from "../types/expense"
+import type Budget from "../types/budget"
 import { budgetStore } from "../store/budgetStore"
 
 export default function ExpensesPage() {
@@ -9,9 +10,9 @@ export default function ExpensesPage() {
   const [amount, setAmount] = useState<number>(0)
   const [category, setCategory] = useState("")
   const [description, setDescription] = useState("")
-  const date = Date.now()
+  const [date, setDate] = useState(() => new Date().toISOString().split("T")[0])
 
-  const [budgets, setBudgets] = useState([]) // for selecting budget
+  const [budgets, setBudgets] = useState<Budget[]>([]) // for selecting budget
 
   useEffect(() => {
     // Subscribe to expenses
@@ -101,6 +102,14 @@ export default function ExpensesPage() {
               placeholder="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+
+            {/* date picker */}
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
