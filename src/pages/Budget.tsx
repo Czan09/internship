@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { budgetStore } from "../store/budgetStore"
-import type { Budget } from "../types/budget"
+import type  Budget  from "../types/budget"
 
 export default function BudgetsPage() {
   const [budgets, setBudgets] = useState<Budget[]>([])

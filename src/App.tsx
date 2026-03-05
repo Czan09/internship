@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Budget from './pages/Budget';
 import Expenses from './pages/Expenses';
 import { useAuth } from './hooks/useAuth';
+import Navbar from './componenets/layout/Navbar';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, initializing } = useAuth();
@@ -14,6 +15,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
+    <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -43,6 +46,7 @@ function App() {
         />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
+    </BrowserRouter>
   );
 }
 
