@@ -1,7 +1,7 @@
 // types/expense.ts
 export interface Expense {
   id: string
-  budgetId: number
+  budgetId: string
   userId: number
   amount: number
   description: string

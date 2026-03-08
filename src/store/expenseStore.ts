@@ -37,9 +37,19 @@ class ExpStore {
   }
 
   // ===== CREATE EXPENSE AND UPDATE BUDGET =====
-  async create(expense: Omit<Expense, "id" | "userId" | "createdAt" | "updatedAt">): Promise<Expense> {
+  async create(
+    expense: Omit<Expense, "id" | "userId" | "createdAt" | "updatedAt">
+  ): Promise<Expense> {
     const userId = getUserId()
     if (!userId) throw new Error("User not authenticated")
+
+    // ===== Check Budget Before Creating Expense =====
+    const budget = await budgetStore.fetchById(String(expense.budgetId))
+    const remainingBudget = budget.amount - budget.spent
+
+    if (expense.amount > remainingBudget) {
+      throw new Error("Not enough budget for this expense")
+    }
 
     const now = new Date().toISOString()
 
@@ -56,15 +66,13 @@ class ExpStore {
 
     const newExpense: Expense = await res.json()
 
-    // Add to store (prevent duplicates)
-    this.expenses = [...this.expenses.filter(e => e.id !== newExpense.id), newExpense]
+    // ===== Update Store & Notify =====
+    this.expenses = [...this.expenses, newExpense]  // just append
     this.notify()
 
-    // ===== Update related budget spent =====
+    // ===== Update Budget Spent =====
     try {
-      const budget = await budgetStore.fetchById(String(expense.budgetId))
       const newSpent = budget.spent + expense.amount
-
       await budgetStore.update(String(expense.budgetId), { spent: newSpent })
     } catch (err) {
       console.error("Failed to update budget spent:", err)

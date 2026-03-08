@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
 import { useAuth } from '../hooks/useAuth'; // Ensure this path is correct
 
 // Types
@@ -18,7 +18,6 @@ const Dashboard: React.FC = () => {
     // 1. Get the authenticated user and logout function from your hook
     const { user: authUser, logout } = useAuth();
     
-    const [enabled, setEnabled] = useState(false);
     const [users, setUsers] = useState<User[]>([]);
     const [budgets, setBudgets] = useState<Budget[]>([]);
     const [loading, setLoading] = useState(true);
@@ -91,11 +90,6 @@ const Dashboard: React.FC = () => {
             <main>
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div className="bg-white p-4 rounded shadow">
-                        <h2 className="text-xl font-semibold text-gray-600">Total Users</h2>
-                        <p className="text-2xl font-bold">{users.length}</p>
-                    </div>
-                    
-                    <div className="bg-white p-4 rounded shadow">
                         <h2 className="text-xl font-semibold text-gray-600">Total Budget</h2>
                         <p className="text-2xl font-bold">${totalRevenue.toLocaleString()}</p>
                     </div>
@@ -106,16 +100,6 @@ const Dashboard: React.FC = () => {
                     </div>
                 </section>
 
-                <section className="bg-white p-4 rounded shadow">
-                    <h2 className="text-xl font-semibold mb-4">Internal User List</h2>
-                    <ul className="divide-y">
-                        {users.map(u => (
-                            <li key={u.id} className={`py-2 ${u.id === authUser?.id ? 'font-bold text-blue-600' : ''}`}>
-                                {u.name} {u.id === authUser?.id && "(You)"}
-                            </li>
-                        ))}
-                    </ul>
-                </section>
             </main>
         </div>
     );

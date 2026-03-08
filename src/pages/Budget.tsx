@@ -5,7 +5,7 @@ import type  Budget  from "../types/budget"
 export default function BudgetsPage() {
   const [budgets, setBudgets] = useState<Budget[]>([])
   const [name, setName] = useState("")
-  const [amount, setAmount] = useState<number>(0)
+  const [amount, setAmount] = useState<number | "">("")
   const [category, setCategory] = useState("")
   const [description, setDescription] = useState("")
 
@@ -70,7 +70,20 @@ export default function BudgetsPage() {
               type="number"
               placeholder="Amount"
               value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value
+
+                // allow empty input
+                if (value === "") {
+                  setAmount("")   // <-- important
+                  return
+                }
+
+                // prevent negative numbers
+                if (Number(value) >= 0) {
+                  setAmount(Number(value))
+                }
+              }}
               className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 

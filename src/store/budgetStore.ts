@@ -1,5 +1,5 @@
 // store/budgetStore.ts
-import type { Budget } from "../pages/Budget"
+import type Budget from "../types/budget"
 import { getUserId } from "./authStore"
 
 type Listener = (budgets: Budget[]) => void
@@ -10,6 +10,8 @@ class BudgetStore {
   private listeners: Listener[] = []
 
   subscribe(listener: Listener) {
+    console.log("subscribe budget")
+    console.log(listener)
     this.listeners.push(listener)
     listener(this.budgets)
 
@@ -40,6 +42,19 @@ class BudgetStore {
     this.notify()
 
     return data
+  }
+
+  async fetchById(budetId:String): Promise<Budget>{
+    const userId = getUserId()
+    if (!userId) throw new Error("User not authenticated")
+      try{ const res = await fetch(`${this.baseUrl}/${budetId}`)
+      const data: Budget = await res.json()
+      return data
+    }
+      catch(error){
+        console.error(error)
+        throw new Error("error")
+      }
   }
 
   // ==================================

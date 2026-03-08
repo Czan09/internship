@@ -35,8 +35,8 @@ const Login: React.FC = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-            <div className="bg-white rounded-lg shadow-md flex overflow-hidden w-full max-w-3xl lg:max-w-4xl items-stretch min-h-[420px]">
-                <div className="hidden md:block md:w-1/2 h-full flex-shrink-0 pr-20">
+            <div className="bg-white rounded-lg shadow-md flex overflow-hidden w-full max-w-3xl lg:max-w-4xl items-stretch min-h-105">
+                <div className="hidden md:block md:w-1/2 h-full shrink-0 pr-20">
                     <img src={img} alt="loginImg" className="h-full w-full object-cover" />
                 </div>
                 <div className="w-full md:w-1/2 md:-ml-20 p-6 md:p-8 lg:p-10 flex flex-col justify-center">

@@ -21,123 +21,89 @@
   ],
   "budgets": [
     {
-      "id": "95c9",
+      "id": "2084",
       "name": "test",
-      "amount": 80,
-      "spent": 0,
-      "category": "sd",
-      "description": "dsd",
+      "amount": 50000,
+      "spent": 1844,
+      "category": "test",
+      "description": "test",
       "userId": "419d",
-      "createdAt": "2026-02-18T01:29:30.681Z",
-      "updatedAt": "2026-02-18T01:29:30.681Z"
+      "createdAt": "2026-03-08T09:07:29.614Z",
+      "updatedAt": "2026-03-08T09:43:47.331Z"
     },
     {
-      "id": "c95d",
+      "id": "a369",
       "name": "test2",
-      "amount": 500,
-      "spent": 0,
-      "category": "dd",
-      "description": "dd",
-      "userId": "419d",
-      "createdAt": "2026-02-18T01:29:56.399Z",
-      "updatedAt": "2026-02-18T01:29:56.399Z"
-    },
-    {
-      "id": "ae6d",
-      "name": "test3",
-      "amount": 500,
-      "spent": 0,
-      "category": "ff",
-      "description": "ff",
-      "userId": "419d",
-      "createdAt": "2026-02-18T01:32:06.497Z",
-      "updatedAt": "2026-02-18T01:32:06.497Z"
-    },
-    {
-      "id": "6069",
-      "name": "test5",
-      "amount": 80,
-      "spent": 0,
-      "category": "15",
-      "description": "10",
-      "userId": "419d",
-      "createdAt": "2026-02-18T01:32:59.527Z",
-      "updatedAt": "2026-02-18T01:32:59.527Z"
-    },
-    {
-      "id": "e530",
-      "name": "test3",
-      "amount": 50,
-      "spent": 0,
-      "category": "15",
-      "description": "ss",
-      "userId": "419d",
-      "createdAt": "2026-02-18T01:33:37.180Z",
-      "updatedAt": "2026-02-18T01:33:37.180Z"
-    },
-    {
-      "id": "b8ba",
-      "name": "test",
-      "amount": 80,
-      "spent": 0,
-      "category": "ds",
-      "description": "152",
-      "userId": "419d",
-      "createdAt": "2026-02-18T01:39:00.487Z",
-      "updatedAt": "2026-02-18T01:39:00.487Z"
-    },
-    {
-      "id": "4790",
-      "name": "pc",
       "amount": 10000,
       "spent": 0,
-      "category": "personal",
-      "description": "building pc",
-      "userId": "bbbc",
-      "createdAt": "2026-03-03T06:45:46.444Z",
-      "updatedAt": "2026-03-03T06:45:46.444Z"
+      "category": "test",
+      "description": "test",
+      "userId": "419d",
+      "createdAt": "2026-03-08T09:36:06.350Z",
+      "updatedAt": "2026-03-08T09:36:06.350Z"
     }
   ],
   "expenses": [
     {
-      "id": "cf27",
-      "budgetId": 6069,
+      "id": "dceb",
+      "budgetId": "2084",
       "amount": 500,
-      "category": "12",
-      "description": "sdasd",
-      "date": "2026-02-18",
+      "category": "500",
+      "description": "test",
+      "date": "2026-03-08",
       "receipt": null,
       "userId": "419d",
-      "createdAt": "2026-02-18T01:44:18.661Z",
-      "updatedAt": "2026-02-18T01:44:18.661Z"
+      "createdAt": "2026-03-08T09:28:57.022Z",
+      "updatedAt": "2026-03-08T09:28:57.022Z"
     },
     {
-      "id": "c0f7",
-      "budgetId": 6069,
-      "amount": 15,
-      "category": "12",
-      "description": "12",
-      "date": 1771379560916,
+      "id": "18cb",
+      "budgetId": "2084",
+      "amount": 500,
+      "category": "terst",
+      "description": "test",
+      "date": "2026-03-08",
       "receipt": null,
       "userId": "419d",
-      "createdAt": "2026-02-18T01:52:59.199Z",
-      "updatedAt": "2026-02-18T01:52:59.199Z"
+      "createdAt": "2026-03-08T09:35:46.459Z",
+      "updatedAt": "2026-03-08T09:35:46.459Z"
+    },
+    {
+      "id": "aa5b",
+      "budgetId": "2084",
+      "amount": 344,
+      "category": "test",
+      "description": "helllo",
+      "date": "2026-03-08",
+      "receipt": null,
+      "userId": "419d",
+      "createdAt": "2026-03-08T09:38:46.293Z",
+      "updatedAt": "2026-03-08T09:38:46.293Z"
+    },
+    {
+      "id": "b3a4",
+      "budgetId": "2084",
+      "amount": 500,
+      "category": "test",
+      "description": "test ttest",
+      "date": "2026-03-08",
+      "receipt": null,
+      "userId": "419d",
+      "createdAt": "2026-03-08T09:43:47.323Z",
+      "updatedAt": "2026-03-08T09:43:47.323Z"
     }
   ],
-  "billSplits": [
+  "billSplits": [],
+  "friends": [
     {
-      "id": "1",
-      "expenseId": 1,
-      "splitBetween": [
-        1,
-        2
-      ],
-      "amounts": {
-        "1": 50,
-        "2": 50
-      },
-      "status": "pending",
-      "createdAt": "2024-01-15T00:00:00.000Z"
+      "id": "7632",
+      "userId": "419d",
+      "friendUserId": "bbbc",
+      "status": "PENDING",
+      "blockedBy": null,
+      "createdAt": "2026-03-08T10:36:09.022Z",
+      "updatedAt": "2026-03-08T10:36:09.022Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

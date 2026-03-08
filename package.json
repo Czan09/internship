@@ -8,11 +8,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "script": "npx json-server db.json --port 5000"
+    "script": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.4",
     "json-server": "^1.0.0-beta.5",
     "latest": "^0.2.0",
@@ -21,7 +22,9 @@
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.13.0",
-    "tailwindcss": "^4.1.18"
+    "react-toastify": "^11.0.5",
+    "tailwindcss": "^4.1.18",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

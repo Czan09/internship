@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { AxiosError } from 'axios';
-import apiClient from '@/lib/api/client';
+import apiClient from '../lib/api/client';
 
 type HttpMethod = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
